@@ -7,10 +7,13 @@ app.use(cors());
 
 app.use(express.json());
 // Route to get all jobs
-app.listen(8000, () => {
-  console.log("Server is running on port 8000");
-});
+
 app.get('/api/jobs', (req, res) => {
   res.json(jobs);
 });
+app.get('/', (req, res) => {
+  res.send('Backend is working!');
+});
 // Route to handle login data
+// ✅ ADD this instead:
+module.exports = app;
