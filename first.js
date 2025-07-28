@@ -3,7 +3,16 @@ const app = express();
 const cors = require('cors');
 const jobs = require('./jobsdata'); // 
 app.use(express.json());
-app.use(cors()); // You can replace '*' with your frontend URL in production
+
+
+
+const corsOptions = {
+  origin: '*', // or specify your Netlify domain like 'https://your-app.netlify.app'
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: false,
+};
+
+app.use(cors(corsOptions));
 
 app.get('/api/jobs', (req, res) => {
   res.json(jobs);
