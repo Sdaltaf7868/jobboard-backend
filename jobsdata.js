@@ -1,4 +1,4 @@
-export const jobData = [
+const jobData = [
   {
     id: 1,
     title: "iOS Developer",
