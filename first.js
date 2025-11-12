@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const jobs = require('./jobdata'); // 
+const jobs = require('./jobsdata'); // 
 app.use(express.json());
 
 
