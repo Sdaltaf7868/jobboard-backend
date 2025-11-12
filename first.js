@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 const corsOptions = {
-  origin: '*', // or specify your Netlify domain like 'https://your-app.netlify.app'
+  origin: 'https://jobboard-frontend-sable.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: false,
 };
