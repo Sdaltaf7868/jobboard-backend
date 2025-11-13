@@ -5,20 +5,20 @@ const jobs = require('./jobsdata');
 
 app.use(express.json());
 
-const corsOptions = {
-  origin: [
-    'https://jobboard-frontend-sable.vercel.app', // your deployed frontend
-    'http://localhost:5173' // local frontend (for dev)
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+// ✅ Enable CORS for both frontend & localhost
+app.use(cors({
+  origin: ['https://jobboard-frontend-sable.vercel.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  optionsSuccessStatus: 200,
-};
+}));
 
-app.use(cors(corsOptions));
+// ✅ Handle preflight requests manually (important for Render)
+app.options('*', cors());
 
-// Routes
+// ✅ API Routes
 app.get('/api/jobs', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://jobboard-frontend-sable.vercel.app');
   res.json(jobs);
 });
 
@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
 
-// Server start
+// ✅ Start server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
