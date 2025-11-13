@@ -10,7 +10,7 @@ app.use(express.json());
 const corsOptions = {
   origin: 'https://jobboard-frontend-sable.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: false,
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
