@@ -1,27 +1,33 @@
-
 const express = require('express');
-const app = express();
 const cors = require('cors');
-const jobs = require('./jobsdata'); // 
+const app = express();
+const jobs = require('./jobsdata');
+
 app.use(express.json());
 
-
-
 const corsOptions = {
-  origin: 'https://jobboard-frontend-sable.vercel.app',
+  origin: [
+    'https://jobboard-frontend-sable.vercel.app', // your deployed frontend
+    'http://localhost:5173' // local frontend (for dev)
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
 
+// Routes
 app.get('/api/jobs', (req, res) => {
   res.json(jobs);
 });
-app.listen(process.env.PORT || 8000, () => {
-  console.log(`Server is running on port ${process.env.PORT || 8000}`);
-}); 
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');
+});
+
+// Server start
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
 });
