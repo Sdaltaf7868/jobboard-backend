@@ -5,20 +5,23 @@ const jobs = require('./jobsdata');
 
 app.use(express.json());
 
-// ✅ Enable CORS for both frontend & localhost
-app.use(cors({
-  origin: ['https://jobboard-frontend-sable.vercel.app', 'http://localhost:5173'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+// ✅ Add all your frontend URLs here
+const corsOptions = {
+  origin: [
+    'https://jobboard-frontend-sable.vercel.app',
+    'https://jobboard-frontend-git-main-sdaltaf7868s-projects.vercel.app',
+    'http://localhost:5173' // for local testing
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
-}));
+  optionsSuccessStatus: 200,
+};
 
-// ✅ Handle preflight requests manually (important for Render)
-app.options('*', cors());
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // <-- handles preflight requests
 
-// ✅ API Routes
+// ✅ Routes
 app.get('/api/jobs', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://jobboard-frontend-sable.vercel.app');
   res.json(jobs);
 });
 
@@ -26,8 +29,5 @@ app.get('/', (req, res) => {
   res.send('Backend is running!');
 });
 
-// ✅ Start server
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
