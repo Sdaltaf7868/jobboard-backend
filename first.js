@@ -10,7 +10,9 @@ const corsOptions = {
   origin: [
     'https://jobboard-frontend-sable.vercel.app',
     'https://jobboard-frontend-git-main-sdaltaf7868s-projects.vercel.app',
-    'http://localhost:5173' // for local testing
+    'https://jobboard-frontend-7jla3q65b-sdaltaf7868s-projects.vercel.app', // ✅ Add this
+    'http://localhost:5173'
+
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
